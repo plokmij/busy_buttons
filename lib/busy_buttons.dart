@@ -11,7 +11,7 @@ class BusyTextButton extends StatefulWidget {
     this.onFocusChange,
     this.style,
     this.focusNode,
-    required this.autofocus,
+    this.autofocus = false,
     this.clipBehavior,
     this.statesController,
     this.isSemanticButton,
@@ -30,7 +30,7 @@ class BusyTextButton extends StatefulWidget {
   final Clip? clipBehavior;
   final WidgetStatesController? statesController;
   final bool? isSemanticButton;
-  final AlignmentGeometry? iconAlignment;
+  final IconAlignment? iconAlignment;
 
   @override
   State<BusyTextButton> createState() => _BusyTextButtonState();
@@ -53,7 +53,16 @@ class _BusyTextButtonState extends State<BusyTextButton> {
               }
             }
           : null,
+      onLongPress: widget.onLongPress,
+      onFocusChange: widget.onFocusChange,
+      onHover: widget.onHover,
+      style: widget.style,
+      focusNode: widget.focusNode,
+      autofocus: widget.autofocus,
+      clipBehavior: widget.clipBehavior,
       statesController: widget.statesController,
+      isSemanticButton: widget.isSemanticButton,
+      iconAlignment: widget.iconAlignment ?? IconAlignment.start,
       child: _isBusy ? widget.busyChild : widget.child,
     );
   }
