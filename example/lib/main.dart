@@ -1,3 +1,4 @@
+import 'package:busy_buttons/busy_buttons.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,10 +10,17 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return  MaterialApp(
       home: Scaffold(
         body: Center(
-          child: Text('Hello World!'),
+          child: BusyTextButton(
+            onPressed: () async{
+             await Future.delayed(const Duration(seconds: 2));
+             print('hola mundo');
+            },
+            busyChild: const Text('Please Wait'),
+            child: const Text('No so long'),
+          ),
         ),
       ),
     );
