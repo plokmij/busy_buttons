@@ -20,7 +20,7 @@ class BusyTextButton extends StatefulWidget {
 
   final Widget child;
   final Widget busyChild;
-  final VoidCallback onPressed;
+  final Future<void> Function() onPressed;
   final VoidCallback? onLongPress;
   final ValueSetter<bool>? onHover;
   final ValueChanged<bool>? onFocusChange;
@@ -43,13 +43,17 @@ class _BusyTextButtonState extends State<BusyTextButton> {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: !_isBusy
-          ? () {
+          ? () async {
               try {
-                _isBusy = true;
-                widget.onPressed();
+                setState(() {
+                  _isBusy = true;
+                });
+                await widget.onPressed();
               } catch (_) {
               } finally {
-                _isBusy = false;
+                setState(() {
+                  _isBusy = false;
+                });
               }
             }
           : null,
