@@ -10,7 +10,6 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int count=0;
     return  MaterialApp(
       home: Scaffold(
         body: Center(
@@ -19,7 +18,7 @@ class MainApp extends StatelessWidget {
              await Future.delayed(const Duration(seconds: 2));
             },
             busyChild: const Text('Please Wait'),
-            child: const Text('No so long'),
+            child: const Text('Click Me'),
           ),
         ),
       ),
