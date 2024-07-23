@@ -64,4 +64,29 @@ void main() {
     await tester.tap(find.text('Button'));
     expect(onPressedCalled, isTrue);
   });
+
+  testWidgets('Onpressed is disabled when busy', (WidgetTester tester) async {
+    int onPressedCalled = 0;
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: BusyTextButton(
+            onPressed: () async {
+              onPressedCalled++;
+              await Future.delayed(const Duration(seconds: 3));
+            },
+            child: const Text('Button'),
+          ),
+        ),
+      ),
+    );
+
+    await tester.tap(find.text('Button'));
+    await tester.tap(find.text('Button'));
+    await tester.tap(find.text('Button'));
+    await tester.tap(find.text('Button'));
+    expect(onPressedCalled, 1);
+    await tester.pump(const Duration(seconds: 3, milliseconds: 100));
+  });
 }
