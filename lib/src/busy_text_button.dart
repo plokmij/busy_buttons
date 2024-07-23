@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class BusyTextButton extends StatefulWidget {
   const BusyTextButton({
     super.key,
-    required this.busyChild,
+    this.busyChild,
     required this.child,
     required this.onPressed,
     this.onLongPress,
@@ -19,7 +19,7 @@ class BusyTextButton extends StatefulWidget {
   });
 
   final Widget child;
-  final Widget busyChild;
+  final Widget? busyChild;
   final Future<void> Function() onPressed;
   final VoidCallback? onLongPress;
   final ValueSetter<bool>? onHover;
@@ -67,7 +67,9 @@ class _BusyTextButtonState extends State<BusyTextButton> {
       statesController: widget.statesController,
       isSemanticButton: widget.isSemanticButton,
       iconAlignment: widget.iconAlignment ?? IconAlignment.start,
-      child: _isBusy ? widget.busyChild : widget.child,
+      child: (widget.busyChild != null && _isBusy)
+          ? widget.busyChild!
+          : widget.child,
     );
   }
 }
