@@ -28,7 +28,7 @@ void main() {
         home: Scaffold(
           body: BusyTextButton(
             onPressed: () async {
-              await Future.delayed(const Duration(seconds: 10));
+              await Future.delayed(const Duration(seconds: 2));
             },
             busyChild: const Text('Loading'),
             child: const Text('Button'),
@@ -37,7 +37,11 @@ void main() {
       ),
     );
     await tester.tap(find.text('Button'));
+    await tester.pump(const Duration(seconds: 1, milliseconds: 100));
     expect(find.text('Loading'), findsOneWidget);
+    await tester.pump(const Duration(seconds: 1));
+    expect(find.text('Loading'), findsNothing);
+    expect(find.text('Button'), findsOneWidget);
   });
 
   testWidgets('BusyTextButton calls onPressed when tapped',
