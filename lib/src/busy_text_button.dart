@@ -71,3 +71,37 @@ class _BusyTextButtonState extends State<BusyTextButton> {
     );
   }
 }
+
+extension BusyExtension on TextButton {
+  static Widget busy({
+    required Widget child,
+    required Widget busyChild,
+    required Future<void> Function() onPressed,
+    VoidCallback? onLongPress,
+    ValueSetter<bool>? onHover,
+    ValueChanged<bool>? onFocusChange,
+    ButtonStyle? style,
+    FocusNode? focusNode,
+    bool autofocus = false,
+    Clip? clipBehavior,
+    WidgetStatesController? statesController,
+    bool? isSemanticButton,
+    IconAlignment? iconAlignment,
+  }) {
+    return BusyTextButton(
+      busyChild: busyChild,
+      onPressed: onPressed,
+      onLongPress: onLongPress,
+      onHover: onHover,
+      onFocusChange: onFocusChange,
+      style: style,
+      focusNode: focusNode,
+      autofocus: autofocus,
+      clipBehavior: clipBehavior,
+      statesController: statesController,
+      isSemanticButton: isSemanticButton,
+      iconAlignment: iconAlignment,
+      child: child,
+    );
+  }
+}
